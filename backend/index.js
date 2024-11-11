@@ -10,26 +10,23 @@ const app = express();
 app.use(express.json());
 
 // Middleware for handling CORS POLICY
-// option 1: Allow All Origins with Default of cors(*)
-app.use(cors());
-// option 2: Allow Custom Origins
-// app.use(
-//   cors({
-//     origin: "http://localhost:5555",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type"],
-//   })
-// );
+app.use(
+  cors({
+    origin: "https://book-store-mern-stack-delta.vercel.app", // No trailing slash
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true, // Allow cookies if needed
+  })
+);
 
 app.get("/", (request, response) => {
   console.log(request);
-  return response.status(234).send("Welcome To MERN Stack Tutorial");
+  return response.status(200).send("Welcome To MERN Stack Tutorial");
 });
 
 app.use("/books", booksRoute);
 
 mongoose
-  .connect(mongoDBURL)
+  .connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true }) // Options for improved connection handling
   .then(() => {
     console.log("App connected to database");
     app.listen(PORT, () => {
@@ -37,5 +34,5 @@ mongoose
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.log("Database connection error:", error);
   });
