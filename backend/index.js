@@ -1,8 +1,11 @@
 import express, { request } from "express";
-import { PORT, mongoDBURL } from "./config.js";
+import { PORT, mongoDBURL } from "./config.js"; // Import the configuration variables
 import mongoose from "mongoose";
 import booksRoute from "./routes/booksRoute.js";
 import cors from "cors";
+
+console.log(`Server is running on port ${PORT}`);
+console.log(`Connecting to database: ${mongoDBURL}`);
 
 const app = express();
 

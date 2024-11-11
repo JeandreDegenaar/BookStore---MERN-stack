@@ -1,2 +1,6 @@
+// Load environment variables from the .env file
+import dotenv from "dotenv";
+dotenv.config();
+
 export const PORT = process.env.PORT || 5555;
 export const mongoDBURL = process.env.MONGO_DB_URL;
